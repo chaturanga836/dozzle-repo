@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  dozzle:
+    image: amir20/dozzle:v6.4.2  # Pinning stable version instead of 'latest'
+    container_name: etl-log-viewer
+    restart: always
+    environment:
+      - DOZZLE_LEVEL=info
+      # Authentication to keep your server logs safe from the public web
+      - DOZZLE_USERNAME=admin
+      - DOZZLE_PASSWORD=ChooseYourPasswordHere  
+    volumes:
+      # Mounts the host's Docker socket so Dozzle can read all container logs on this machine
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "8888:8080"  # Mapping to 8888 so it doesn't clash with your apps or Jenkins
+
+networks:
+  default:
+    name: dozzle-logging-network
