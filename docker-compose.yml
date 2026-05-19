@@ -7,8 +7,6 @@ services:
     restart: always
     environment:
       - DOZZLE_LEVEL=info
-    # Correctly feeding the exact CLI arguments v6.4.2 expects
-    command: --username admin --password ${DOZZLE_PASSWORD}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
